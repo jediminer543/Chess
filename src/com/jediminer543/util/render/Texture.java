@@ -39,7 +39,7 @@ public class Texture
 		
 		buffer = BufferUtils.createByteBuffer(4 * decoder.getWidth() * decoder.getHeight());
 
-		decode(buffer, 4 * decoder.getWidth(), PNGDecoder.Format.RGBA, decoder);
+		decoder.decode(buffer, 4 * decoder.getWidth(), PNGDecoder.Format.RGBA);
 		
 		buffer.flip();
 
@@ -55,11 +55,6 @@ public class Texture
 		glTexImage2D(target, 0, GL_RGBA, getWidth(), getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
 
 		id = glGenTextures();
-	}
-
-	public void decode(ByteBuffer buffer, int stride, PNGDecoder.Format fmt, PNGDecoder decoder) throws IOException
-	{
-		decoder.decode(buffer, 4 * decoder.getWidth(), PNGDecoder.Format.RGBA);
 	}
 
 	public void bind() throws IOException
