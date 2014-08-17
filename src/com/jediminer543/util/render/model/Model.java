@@ -37,7 +37,7 @@ public class Model extends Renderable
 		for (MTLMaterial material:mtl.materials)
 		{
 			try {
-				material.texture = new Texture(path.getParent() + "\\" + material.textureName, false);
+				material.texture = new Texture(path.getParent() + "\\" + material.textureName);
 				//material.slickTexture = org.newdawn.slick.opengl.TextureLoader.getTexture("PNG", org.newdawn.slick.util.ResourceLoader.getResourceAsStream(path.getParent() + "\\" + material.textureName));
 				//material.slickTexture = org.newdawn.slick.opengl.TextureLoader.getTexture("PNG", org.newdawn.slick.util.ResourceLoader.getResourceAsStream("model/iso/iso.png"));
 			}

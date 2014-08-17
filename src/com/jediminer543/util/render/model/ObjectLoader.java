@@ -86,7 +86,7 @@ public class ObjectLoader
 		m.hasTextures = true;
 		String[] split = s.split(" ");
 		float x = Float.valueOf(split[1]);
-		float y = Float.valueOf(split[2]);
+		float y = 1 - Float.valueOf(split[2]);
 		return new Vector2f(x, y);
 	}
 
