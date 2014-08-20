@@ -1,4 +1,4 @@
-package com.jediminer543.chess.handlers;
+package com.jediminer543.util.handlers;
 
 import com.jediminer543.chess.globals.GLOBALS;
 import com.jediminer543.util.render.RenderLayer;

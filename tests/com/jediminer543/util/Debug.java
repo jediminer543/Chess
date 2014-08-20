@@ -74,7 +74,6 @@ public class Debug
 		GLOBALS.Screen.vsync = config.readBoolean("Screen.vsync");
 		GLOBALS.Screen.width = config.readInteger("Screen.width");
 		GLOBALS.Screen.height = config.readInteger("Screen.height");
-
 	}
 
 	public static void initDisplay()
@@ -135,41 +134,6 @@ public class Debug
 			GL11.glMatrixMode(GL11.GL_PROJECTION);
 			GL11.glLoadMatrix(GLOBALS.Matricies.Projection.Project);
 			model.render();
-			/*try {
-				model.mtl.materials.get(0).texture.bind();
-			}
-			catch (IOException e) {
-				e.printStackTrace();
-			}*/
-/*			GL11.glMatrixMode(GL11.GL_PROJECTION);
-			GL11.glLoadMatrix(GLOBALS.Matricies.Projection.Ortho);
-
-			GL11.glDisable(GL11.GL_TEXTURE_2D);
-			GL11.glEnable(GL11.GL_TEXTURE_2D);
-
-			try {
-				texture.bind();
-			}
-			catch (IOException e) {
-				e.printStackTrace();
-			}
-
-			GL11.glBegin(GL11.GL_QUADS);
-
-			GL11.glTexCoord2f(0, 0);
-			GL11.glVertex2f(0, 0);
-
-			GL11.glTexCoord2f(0, 1);
-			GL11.glVertex2f(0, 50);
-
-			GL11.glTexCoord2f(1, 1);
-			GL11.glVertex2f(50, 50);
-
-			GL11.glTexCoord2f(1, 0);
-			GL11.glVertex2f(50, 0);
-
-			GL11.glEnd();*/
-
 		}
 	}
 

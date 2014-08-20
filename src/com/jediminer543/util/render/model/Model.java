@@ -38,30 +38,19 @@ public class Model extends Renderable
 		{
 			try {
 				material.texture = new Texture(path.getParent() + "\\" + material.textureName);
-				//material.slickTexture = org.newdawn.slick.opengl.TextureLoader.getTexture("PNG", org.newdawn.slick.util.ResourceLoader.getResourceAsStream(path.getParent() + "\\" + material.textureName));
-				//material.slickTexture = org.newdawn.slick.opengl.TextureLoader.getTexture("PNG", org.newdawn.slick.util.ResourceLoader.getResourceAsStream("model/iso/iso.png"));
+				material.slickTexture = org.newdawn.slick.opengl.TextureLoader.getTexture("PNG", org.newdawn.slick.util.ResourceLoader.getResourceAsStream(path.getParent() + "\\" + material.textureName));
 			}
 			catch (IOException e)
 			{
 				e.printStackTrace();
 			}
-
 		}
-/*		try {
-			currentMaterial = new MTLMaterial("NAme");
-			currentMaterial.slickTexture = org.newdawn.slick.opengl.TextureLoader.getTexture("PNG", org.newdawn.slick.util.ResourceLoader.getResourceAsStream(path.getParent() + "\\" + "ChessBoardMK2Base.png"));
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}*/
-
 	}
 
 	@Override
 	public void render()
 	{
-		GL11.glDisable(GL11.GL_TEXTURE_2D);
+		//GL11.glDisable(GL11.GL_TEXTURE_2D);
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		GL11.glPushMatrix();
 		GL11.glBegin(GL11.GL_TRIANGLES);
@@ -70,14 +59,7 @@ public class Model extends Renderable
 				for (MTLMaterial material : mtl.materials) {
 					if (material.name.equals(f.materialName)) {
 						currentMaterial = material;
-						//currentMaterial.slickTexture.bind();
-						try {
-							currentMaterial.texture.bind();
-						}
-						catch (IOException e)
-						{
-							e.printStackTrace();
-						}
+						currentMaterial.texture.bind();
 					}
 				}
 			}
@@ -85,19 +67,11 @@ public class Model extends Renderable
 				for (MTLMaterial material : mtl.materials) {
 					if (material.name.equals(f.materialName)) {
 						currentMaterial = material;
-						//currentMaterial.slickTexture.bind();
-						try {
-							currentMaterial.texture.bind();
-						}
-						catch (IOException e)
-						{
-							e.printStackTrace();
-						}
+						currentMaterial.texture.bind();
 					}
 				}
 			}
-
-
+			currentMaterial.texture.bind();
 			f.render();
 
 		}
@@ -105,29 +79,4 @@ public class Model extends Renderable
 		GL11.glPopMatrix();
 		currentMaterial = null;
 	}
-
-	// DEAD CODE POOL
-	//GL11.glDisable(GL11.GL_TEXTURE_2D);
-	//currentMaterial.texture.rebind();
-	//GL11.glColor3f(0.2f, 6.08f, 8.08f);
-	//currentMaterial.slickTexture.bind();
-			/*			try {
-							currentMaterial.texture.bind();
-						}
-						catch (IOException e)
-						{
-							e.printStackTrace();
-						}
-						break;*/
-	//GL11.glEnable(GL11.GL_TEXTURE_2D);
-	//currentMaterial.slickTexture.bind();
-/*						try {
-							currentMaterial.texture.bind();
-						}
-						catch (IOException e)
-						{
-							e.printStackTrace();
-						}
-						break;*/
-	//GL11.glEnable(GL11.GL_TEXTURE_2D);
 }

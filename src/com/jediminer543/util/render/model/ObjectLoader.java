@@ -20,9 +20,14 @@ public class ObjectLoader
 	private static boolean currentSmooth = false;
 
 	/**
-	 * @return Returns a loaded model file
+	 * Parses an obj file and returns a model for that file
+	 * The method also calls the MTLParser to add the material data to the model
 	 *
-	 * @throws IOException
+	 * @param f The file to be read, intended to be an obj file.
+	 *
+	 * @return Returns a loaded model file.
+	 *
+	 * @throws IOException Thrown when either the file is invalid or if the MTL file is invalid.
 	 */
 	public static Model loadModel(File f) throws IOException
 	{
@@ -61,9 +66,16 @@ public class ObjectLoader
 		return m;
 	}
 
+	/**
+	 *
+	 * Parses vertices
+	 *
+	 * @param s Line of file to be parsed.
+	 * @param m Not used by this method.
+	 * @return Vector3f with vertices.
+	 */
 	public static Vector3f loadVertex(String s, Model m)
 	{
-
 		String[] split = s.split(" ");
 		float x = Float.valueOf(split[1]);
 		float y = Float.valueOf(split[2]);
@@ -71,6 +83,14 @@ public class ObjectLoader
 		return new Vector3f(x, y, z);
 	}
 
+	/**
+	 *
+	 * Parses normals
+	 *
+	 * @param s Line of file to be parsed.
+	 * @param m Sets model hasNormals flag so that {@link #loadFace(String, Model)} knows weather to search for them or not.
+	 * @return Vector3f containing normals
+	 */
 	public static Vector3f loadNormal(String s, Model m)
 	{
 		m.hasNormals = true;
@@ -81,6 +101,14 @@ public class ObjectLoader
 		return new Vector3f(x, y, z);
 	}
 
+	/**
+	 *
+	 * Parses texture coords
+	 *
+	 * @param s Line of file to be parsed.
+	 * @param m Sets model hasTextures flag so that {@link #loadFace(String, Model)} knows weather to search for them or not.
+	 * @return Vector2f containing openGL compatible (Flipped obj) texture Coords.
+	 */
 	public static Vector2f loadTexture(String s, Model m)
 	{
 		m.hasTextures = true;
@@ -90,10 +118,17 @@ public class ObjectLoader
 		return new Vector2f(x, y);
 	}
 
+	/**
+	 *
+ 	 * @param s
+	 * @param m
+	 * @return
+	 */
 	public static Face loadFace(String s, Model m)
 	{
 		Face f = new Face();
 		f.materialName = currentMaterial.name;
+		f.material = currentMaterial;
 		String[] split = s.split(" ");
 		Vertex v1 = new Vertex();
 		Vertex v2 = new Vertex();

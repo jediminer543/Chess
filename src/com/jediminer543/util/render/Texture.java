@@ -32,20 +32,28 @@ public class Texture
 	
 	public Texture(InputStream input) throws IOException
 	{
+
 		PNGDecoder decoder = new PNGDecoder(input);
-		
+
 		width = decoder.getWidth();
 		height = decoder.getHeight();
 		
 		buffer = BufferUtils.createByteBuffer(4 * decoder.getWidth() * decoder.getHeight());
 
 		decoder.decode(buffer, 4 * decoder.getWidth(), PNGDecoder.Format.RGBA);
-		
+
 		buffer.flip();
 
-		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-		glPixelStorei(GL_PACK_ALIGNMENT, 1);
+		glEnable(target);
 
+		id = glGenTextures();
+
+		bind();
+
+		//glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+		//glPixelStorei(GL_PACK_ROW_LENGTH, 0);
+		//glPixelStorei(GL_PACK_ALIGNMENT, 1);
 
 		glTexParameteri(target, GL_TEXTURE_MIN_FILTER, filter);
 		glTexParameteri(target, GL_TEXTURE_MAG_FILTER, filter);
@@ -54,17 +62,10 @@ public class Texture
 
 		glTexImage2D(target, 0, GL_RGBA, getWidth(), getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
 
-		id = glGenTextures();
+		input.close();
 	}
 
-	public void bind() throws IOException
-	{
-		glEnable(GL_TEXTURE_2D);
-
-		glBindTexture(target, id);
-	}
-
-	public void rebind()
+	public void bind()
 	{
 		glBindTexture(target, id);
 	}

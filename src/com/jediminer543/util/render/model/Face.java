@@ -18,6 +18,8 @@ public class Face extends Renderable
 
 	public String materialName;
 
+	public MTLMaterial material;
+
 	@Override
 	public void render()
 	{
