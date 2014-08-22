@@ -50,28 +50,33 @@ public class Model extends Renderable
 	@Override
 	public void render()
 	{
-		//GL11.glDisable(GL11.GL_TEXTURE_2D);
-		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		GL11.glPushMatrix();
+/*		GL11.glTranslatef(x, y, z);
+		GL11.glRotatef(x, 1, 0, 0);
+		GL11.glRotatef(y, 0, 1, 0);
+		GL11.glRotatef(z, 0, 0, 1);*/
 		GL11.glBegin(GL11.GL_TRIANGLES);
 		for (Face f:faces) {
 			if (currentMaterial == null) {
 				for (MTLMaterial material : mtl.materials) {
 					if (material.name.equals(f.materialName)) {
+						GL11.glEnd();
 						currentMaterial = material;
 						currentMaterial.texture.bind();
+						GL11.glBegin(GL11.GL_TRIANGLES);
 					}
 				}
 			}
 			else if (!currentMaterial.name.equals(f.materialName)) {
 				for (MTLMaterial material : mtl.materials) {
 					if (material.name.equals(f.materialName)) {
+						GL11.glEnd();
 						currentMaterial = material;
 						currentMaterial.texture.bind();
+						GL11.glBegin(GL11.GL_TRIANGLES);
 					}
 				}
 			}
-			currentMaterial.texture.bind();
 			f.render();
 
 		}

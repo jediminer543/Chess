@@ -103,11 +103,11 @@ public class ObjectLoader
 
 	/**
 	 *
-	 * Parses texture coords
+	 * Parses textureOld coords
 	 *
 	 * @param s Line of file to be parsed.
 	 * @param m Sets model hasTextures flag so that {@link #loadFace(String, Model)} knows weather to search for them or not.
-	 * @return Vector2f containing openGL compatible (Flipped obj) texture Coords.
+	 * @return Vector2f containing openGL compatible (Flipped obj) textureOld Coords.
 	 */
 	public static Vector2f loadTexture(String s, Model m)
 	{

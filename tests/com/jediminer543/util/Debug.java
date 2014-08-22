@@ -29,7 +29,8 @@ public class Debug
 		try {
 			model = ObjectLoader.loadModel(new File("res/model/chessBoard/ChessBoardMK5.obj"));
 			model.init();
-			//texture = new Texture("res/model/iso/iso.png");
+			//model.x = 10;
+			//textureOld = new TextureOld("res/model/iso/iso.png");
 		}
 		catch (IOException e)
 		{
@@ -98,7 +99,7 @@ public class Debug
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
 		GL11.glLoadIdentity();
 		GLU.gluPerspective(90, Display.getWidth() / Display.getHeight(), 0.001f, 100);
-		GLU.gluLookAt(5, 7, 0, 0, 0, 0, 0, 1, 0);
+		GLU.gluLookAt(5, 4, 0, 0, 0, 0, 0, 1, 0);
 		GL11.glGetFloat(GL11.GL_PROJECTION_MATRIX, GLOBALS.Matricies.Projection.Project);
 		//GL11.glLoadIdentity();
 		//GL11.glOrtho(-250, 250, -250, 250, 0.1, 100);
@@ -117,8 +118,8 @@ public class Debug
 		GL11.glLoadIdentity();
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+//		GL11.glEnable(GL11.GL_BLEND);
+//		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GL11.glGetFloat(GL11.GL_MODELVIEW_MATRIX, GLOBALS.Matricies.Modelview.textReady);
 		GL11.glLoadIdentity();
 		GL11.glLoadMatrix(GLOBALS.Matricies.Modelview.base);
@@ -127,13 +128,18 @@ public class Debug
 	public static void loop()
 	{
 		while (!Display.isCloseRequested()) {
-			Display.update();
 			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 			//GL11.glClearColor(0.2f, 6.08f, 8.08f, 0);
-			Display.sync(120);
 			GL11.glMatrixMode(GL11.GL_PROJECTION);
 			GL11.glLoadMatrix(GLOBALS.Matricies.Projection.Project);
+			GL11.glMatrixMode(GL11.GL_MODELVIEW);
+			GL11.glEnable(GL11.GL_BLEND);
+			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			model.render();
+			GL11.glDisable(GL11.GL_BLEND);
+
+			Display.update();
+			Display.sync(120);
 		}
 	}
 

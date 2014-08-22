@@ -46,11 +46,13 @@ public class Texture
 
 		glEnable(target);
 
+		glBindTexture(target, 0);
+
 		id = glGenTextures();
 
 		bind();
 
-		//glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
+        //glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 		//glPixelStorei(GL_PACK_ROW_LENGTH, 0);
 		//glPixelStorei(GL_PACK_ALIGNMENT, 1);
@@ -67,6 +69,7 @@ public class Texture
 
 	public void bind()
 	{
+		glEnable(GL_TEXTURE_2D);
 		glBindTexture(target, id);
 	}
 
