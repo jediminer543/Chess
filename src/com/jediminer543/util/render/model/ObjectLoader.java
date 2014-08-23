@@ -127,6 +127,7 @@ public class ObjectLoader
 	public static Face loadFace(String s, Model m)
 	{
 		Face f = new Face();
+		f.parent = m;
 		f.materialName = currentMaterial.name;
 		f.material = currentMaterial;
 		String[] split = s.split(" ");
@@ -138,7 +139,7 @@ public class ObjectLoader
 		v1.vertex = m.vertices.get(Integer.parseInt(split[1].split("/")[0]) - 1);
 		if (m.hasNormals & !m.hasTextures) {
 			v1.texture = null;
-			v1.normal = m.normals.get(Integer.parseInt(split[1].split("/")[1]) - 1);
+			v1.normal = m.normals.get(Integer.parseInt(split[1].split("//")[1]) - 1);
 		}
 		else if (!m.hasNormals & m.hasTextures) {
 			v1.texture = m.textures.get(Integer.parseInt(split[1].split("/")[1]) - 1);
@@ -151,7 +152,7 @@ public class ObjectLoader
 		v2.vertex = m.vertices.get(Integer.parseInt(split[2].split("/")[0]) - 1);
 		if (m.hasNormals & !m.hasTextures) {
 			v2.texture = null;
-			v2.normal = m.normals.get(Integer.parseInt(split[2].split("/")[1]) - 1);
+			v2.normal = m.normals.get(Integer.parseInt(split[2].split("//")[1]) - 1);
 		}
 		else if (!m.hasNormals & m.hasTextures) {
 			v2.texture = m.textures.get(Integer.parseInt(split[2].split("/")[1]) - 1);
@@ -164,7 +165,7 @@ public class ObjectLoader
 		v3.vertex = m.vertices.get(Integer.parseInt(split[3].split("/")[0]) - 1);
 		if (m.hasNormals & !m.hasTextures) {
 			v3.texture = null;
-			v3.normal = m.normals.get(Integer.parseInt(split[3].split("/")[1]) - 1);
+			v3.normal = m.normals.get(Integer.parseInt(split[3].split("//")[1]) - 1);
 		}
 		else if (!m.hasNormals & m.hasTextures) {
 			v3.texture = m.textures.get(Integer.parseInt(split[3].split("/")[1]) - 1);

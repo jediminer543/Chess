@@ -14,6 +14,7 @@ public class MTLParser
 
 	public static MTL loadMTL(File f) throws IOException
 	{
+		currentMaterial = null;
 		BufferedReader reader = new BufferedReader(new FileReader(f));
 		MTL m = new MTL();
 		String line;

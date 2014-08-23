@@ -23,6 +23,8 @@ public class Model extends Renderable
 	boolean hasTextures;
 	boolean hasNormals;
 
+	public Vector3f scale  = new Vector3f(1, 1, 1);
+
 	MTLMaterial currentMaterial;
 
 	public File path;
@@ -51,10 +53,10 @@ public class Model extends Renderable
 	public void render()
 	{
 		GL11.glPushMatrix();
-/*		GL11.glTranslatef(x, y, z);
-		GL11.glRotatef(x, 1, 0, 0);
-		GL11.glRotatef(y, 0, 1, 0);
-		GL11.glRotatef(z, 0, 0, 1);*/
+		GL11.glTranslatef(pos.x, pos.y, pos.z);
+		GL11.glRotatef(rot.x, 1, 0, 0);
+		GL11.glRotatef(rot.y, 0, 1, 0);
+		GL11.glRotatef(rot.z, 0, 0, 1);
 		GL11.glBegin(GL11.GL_TRIANGLES);
 		for (Face f:faces) {
 			if (currentMaterial == null) {

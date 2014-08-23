@@ -18,6 +18,8 @@ public class Face extends Renderable
 
 	public String materialName;
 
+	Model parent;
+
 	public MTLMaterial material;
 
 	@Override
@@ -31,7 +33,7 @@ public class Face extends Renderable
 			if (hasNormal) {
 				GL11.glNormal3f(vertex.normal.getX(), vertex.normal.getY(), vertex.normal.getZ());
 			}
-			GL11.glVertex3f(vertex.vertex.getX(), vertex.vertex.getY(), vertex.vertex.getZ());
+			GL11.glVertex3f(vertex.vertex.getX() * parent.scale.getX(), vertex.vertex.getY() * parent.scale.getY(), vertex.vertex.getZ() * parent.scale.getZ());
 		}
 
 	}

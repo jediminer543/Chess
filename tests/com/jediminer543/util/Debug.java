@@ -3,6 +3,8 @@ package com.jediminer543.util;
 import com.jediminer543.chess.globals.GLOBALS;
 import com.jediminer543.util.config.Config;
 import com.jediminer543.util.render.Texture;
+import com.jediminer543.util.render.camera.Camera;
+import com.jediminer543.util.render.camera.DebugCamera;
 import com.jediminer543.util.render.model.Model;
 import com.jediminer543.util.render.model.ObjectLoader;
 import org.lwjgl.LWJGLException;
@@ -20,7 +22,10 @@ public class Debug
 	public static File configFile;
 	public static Config config;
 	static Model model;
+	static Model modelKing;
+	static Model modelPawn;
 	static Texture texture;
+	static Camera camera = new DebugCamera();
 
 	public static void main(String[] args)
 	{
@@ -31,6 +36,21 @@ public class Debug
 			model.init();
 			//model.x = 10;
 			//textureOld = new TextureOld("res/model/iso/iso.png");
+			modelKing = ObjectLoader.loadModel(new File("res/model/pieces/PieceKing.obj"));
+			modelKing.init();
+			modelKing.pos.y = 2;
+			modelKing.scale.x = 0.25f;
+			modelKing.scale.y = 0.25f;
+			modelKing.scale.z = 0.25f;
+			modelKing.rot.x = -90;
+			modelPawn = ObjectLoader.loadModel(new File("res/model/pieces/PiecePawn.obj"));
+			modelPawn.init();
+			modelPawn.pos.y = 2;
+			modelPawn.pos.x = 2;
+			modelPawn.scale.x = 0.25f;
+			modelPawn.scale.y = 0.25f;
+			modelPawn.scale.z = 0.25f;
+			modelPawn.rot.x = -90;
 		}
 		catch (IOException e)
 		{
@@ -114,12 +134,13 @@ public class Debug
 		GL11.glLoadIdentity();
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
+		GL11.glEnable(GL11.GL_CULL_FACE);
 		GL11.glGetFloat(GL11.GL_MODELVIEW_MATRIX, GLOBALS.Matricies.Modelview.base);
 		GL11.glLoadIdentity();
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
-//		GL11.glEnable(GL11.GL_BLEND);
-//		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		GL11.glGetFloat(GL11.GL_MODELVIEW_MATRIX, GLOBALS.Matricies.Modelview.textReady);
 		GL11.glLoadIdentity();
 		GL11.glLoadMatrix(GLOBALS.Matricies.Modelview.base);
@@ -128,15 +149,19 @@ public class Debug
 	public static void loop()
 	{
 		while (!Display.isCloseRequested()) {
+			camera.tick();
 			GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 			//GL11.glClearColor(0.2f, 6.08f, 8.08f, 0);
 			GL11.glMatrixMode(GL11.GL_PROJECTION);
 			GL11.glLoadMatrix(GLOBALS.Matricies.Projection.Project);
 			GL11.glMatrixMode(GL11.GL_MODELVIEW);
-			GL11.glEnable(GL11.GL_BLEND);
-			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+//			GL11.glEnable(GL11.GL_BLEND);
+//			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			model.render();
-			GL11.glDisable(GL11.GL_BLEND);
+			modelKing.render();
+			GL11.glDisable(GL11.GL_TEXTURE_2D);
+			modelPawn.render();
+//			GL11.glDisable(GL11.GL_BLEND);
 
 			Display.update();
 			Display.sync(120);
